@@ -1,26 +1,76 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+// import logo from './logo.svg';
+import { connect } from 'react-redux';
+import { Container,Row,Col,Table } from 'react-bootstrap';
+import ValueExchange from './components/valueExchange';
+import getExchangeAction from './action/getExchangeAction';
+import getBuyAction from './action/getBuyAction';
+import getSellAction from './action/getSellAction';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
+const App = props => {
+  useEffect(() => {
+    props.getExchange();
+    props.getBuy();
+    props.getSell();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Container>
+        <Row>
+            <Col lg={2}></Col>
+            <Col lg={8}>
+              <h2 style={{textAlign : "center"}}>Currency Data</h2>
+              <br></br>
+              <Table striped hover bordered variant="light">
+                  <thead>
+                      <tr style={{textAlign : "center"}}>
+                          <th><h4>CURRENCY</h4></th>
+                          <th><h4>WE BUY</h4></th>
+                          <th><h4>EXCHANGE RATE</h4></th>
+                          <th><h4>WE SELL</h4></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr style={{textAlign : "center"}}>
+                          <td></td>
+                          <td><ValueExchange data={props.buy}/></td>
+                          <td><ValueExchange data={props.exchange}/></td>
+                          <td><ValueExchange data={props.sell}/></td>
+                      </tr>
+                  </tbody>
+              </Table>
+              
+              <div style={{width : "100%", textAlign : "center"}}>
+                  Base Currency Is IDR <br/> 
+                  As For The API <a href="https://api.exchangeratesapi.io/">https://api.exchangeratesapi.io/</a> is used
+              </div>
+            </Col>
+          </Row>
+        </Container>
     </div>
-  );
+  )
 }
 
-export default App;
+
+const mapStateToProps = (state) => {
+  return {
+    exchange : state.exchange,
+    buy : state.buy,
+    sell : state.sell,
+  }
+}
+
+// Menggunakan state method yang ada di Redux ke dalam komponen/pages ini
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getExchange: () => dispatch(getExchangeAction()),
+    getBuy: () => dispatch(getBuyAction()),
+    getSell: () => dispatch(getSellAction()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

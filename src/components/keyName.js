@@ -1,14 +1,13 @@
 import React  from 'react'
 import { Table } from 'react-bootstrap'
 
-const valueExchange = ({data}) => {
+const keyName = ({data}) => {
     let exchange = data.rates;
     let point = [];
     let i = 0;
     for(let key in exchange) { 
         point[i] = {
-            name : key,
-            value : exchange[key].toFixed(6)
+            name : key
         };
         i++;
     }
@@ -18,7 +17,7 @@ const valueExchange = ({data}) => {
             <tbody style={{color:"#ffffff"}}>
                 {
                     point.map((element) => (
-                        <tr key={element.value}><td>{element.value}</td></tr>
+                        <tr key={element.name}><td>{element.name}</td></tr>
                     ))
                 }
             </tbody>
@@ -26,4 +25,4 @@ const valueExchange = ({data}) => {
     )
 }
 
-export default valueExchange;
+export default keyName;

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 // import logo from './logo.svg';
 import { connect } from 'react-redux';
 import { Container,Row,Col,Table } from 'react-bootstrap';
+import KeyName from './components/keyName';
 import ValueExchange from './components/valueExchange';
 import getExchangeAction from './action/getExchangeAction';
 import getBuyAction from './action/getBuyAction';
@@ -19,24 +20,23 @@ const App = props => {
 
   return (
     <div>
-      <Container>
+      <Container style={{backgroundColor:"#f25f24"}}>
         <Row>
-            <Col lg={2}></Col>
-            <Col lg={8}>
-              <h2 style={{textAlign : "center"}}>Currency Data</h2>
+            <Col>
+              <h2 style={{textAlign:"center",color:"#ffffff"}}>CURRENCY DATA</h2>
               <br></br>
-              <Table striped hover bordered variant="light">
+              <Table style={{backgroundColor:"#f25f24"}}>
                   <thead>
-                      <tr style={{textAlign : "center"}}>
-                          <th><h4>CURRENCY</h4></th>
-                          <th><h4>WE BUY</h4></th>
-                          <th><h4>EXCHANGE RATE</h4></th>
-                          <th><h4>WE SELL</h4></th>
+                      <tr style={{textAlign:"center",color:"#ffffff"}}>
+                          <th><b><h4>CURRENCY</h4></b></th>
+                          <th><b><h4>WE BUY</h4></b></th>
+                          <th><b><h4>EXCHANGE RATE</h4></b></th>
+                          <th><b><h4>WE SELL</h4></b></th>
                       </tr>
                   </thead>
                   <tbody>
-                      <tr style={{textAlign : "center"}}>
-                          <td></td>
+                      <tr style={{textAlign:"center"}}>
+                          <td><KeyName data={props.buy}/></td>
                           <td><ValueExchange data={props.buy}/></td>
                           <td><ValueExchange data={props.exchange}/></td>
                           <td><ValueExchange data={props.sell}/></td>
@@ -44,7 +44,7 @@ const App = props => {
                   </tbody>
               </Table>
               
-              <div style={{width : "100%", textAlign : "center"}}>
+              <div style={{width:"100%",textAlign:"center",color:"#ffffff"}}>
                   Base Currency Is IDR <br/> 
                   As For The API <a href="https://api.exchangeratesapi.io/">https://api.exchangeratesapi.io/</a> is used
               </div>
